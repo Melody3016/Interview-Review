@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /*
+      总结：
+        1. 函数内部执行的代码与ES6class内部定义属性搞混了
+        2. js执行顺序问题
+        3. new 关键字后面为函数体，而不是调用函数，函数调用是通过new调用的，后面的()不是调用，而是new调用的传参的
+
+    */
+    /*  function Foo() {
+       getName = function () {
+         console.log(1)
+       }
+       return this
+     }
+     Foo.getName = function () {
+       console.log(2)
+     }
+     Foo.prototype.getName = function () {
+       console.log(3)
+     }
+     var getName = function () {
+       console.log(4)
+     }
+     function getName() {
+       console.log(5)
+     }
+     Foo.getName()            
+     getName()                 
+     Foo().getName()           
+     getName()                 
+     new Foo.getName()         
+     new Foo().getName()       
+     new new Foo().getName()   */
+
+    /* function A() {
+      alert(1)
+    }
+
+    function Func() {
+      A = function () {
+        alert(2)
+      }
+      return this
+    }
+    Func.A = A
+    Func.prototype = {
+      A: () => {
+        alert(3)
+      }
+    }
+    A()                 
+    Func.A()            
+    Func().A()          
+    new Func.A()   
+    new Func().A()   
+    new new Func().A() */
+
+    /* var f1 = () => {}
+    var f2 = function() {}
+    new f1()
+    new f2()
+    */
+
+    // 普通函数和箭头函数的原型问题
+    /* function fn1() {
+      return 'fn1'
+    }
+    const fn2 = () => 'fn2'
+    console.log(fn1.prototype)
+    console.log(fn2.prototype)
+    console.dir(fn1)
+    console.dir(fn2) */
+  </script>
+</body>
+
+</html>

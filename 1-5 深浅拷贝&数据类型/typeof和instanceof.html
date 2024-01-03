@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /*
+      1. typeof
+          只能检测基本数据类型和函数
+          对于null会返回object，是因为js早期设计bug
+      2. instanceof
+          针对引用数据类型，判断left的原型链上是否存在right的原型对象prototype
+
+      3. toString()
+          检测数据类型的通用方法
+    */
+    var a = 1,
+      b = 1
+    var n = --a || --b
+    console.log(n, a, b)
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* var i = 100
+    function foo() {
+      bbb: try {
+        console.log('position1')
+        return i++
+      } finally {
+        break bbb
+      }
+      console.log('position2')
+      return i
+    }
+    foo()
+    console.log(i) */
+
+    // console.log(String.raw`hello\nworld`)
+
+    /* function fn(arg1,arg2) {
+      console.log(arg1, arg2)
+      return 1
+    }
+    const a = '1 2 3'.replace(/\d/g, fn)
+    console.log(a); */
+
+    // console.log({age: 18} === {age: 18})
+
+    /* const obj = {
+      a: 'one',
+      b: 'two',
+      a: 'three'
+    }
+    console.log(obj) */
+
+    const obj = {
+      a: 1
+    }
+    console.log(typeof obj == "undefined")
+    console.log(obj === null)
+    console.log(obj === undefined)
+    console.log(Object.hasOwnProperty.call(obj, 'a'))
+    console.log(obj.hasOwnProperty('a'))
+  </script>
+</body>
+</html>

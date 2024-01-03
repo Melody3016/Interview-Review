@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+      call函数的实现
+      思路：
+        1. 将函数作为属性添加到context（this绑定对象）上
+        2. 收集参数
+        3. 通过eval在context上调用该函数
+        4. 删除函数属性
+    */
+    Function.prototype.myCall = function(context) {
+      // 对context进行判断处理
+      context = Object(context) || window
+      // 1. 将函数作为属性添加到context（this绑定对象）上
+      // 优化：使用Symbol防止属性名重复
+      context.fn = this
+      // 2. 收集参数
+      const args = []
+      for(let i = 1, len = arguments.length; i < len; i++) {
+        args.push('arguments[' + i + ']')
+      }
+      // 3. 通过eval在context上调用该函数
+      const result = eval('context.fn('+ args +')')
+      // 4. 删除函数属性
+      delete context.fn
+      return result
+    }
+
+    /*
+      apply函数的实现
+      思路：
+        和call函数的区别主要是在参数上，第二个参数为数组
+    */
+    Function.prototype.myApply = function(context, arr) {
+      // 对context进行判断处理
+      context = Object(context) || window
+      // 1. 将函数作为属性添加到context（this绑定对象）上
+      // 优化：使用Symbol防止属性名重复
+      context.fn = this
+      // 2. 收集参数，如果arr为空，则直接执行函数
+      if(!arr) return context.fn()
+      const args = []
+      for(let i = 1, len = arr.length; i < len; i++) {
+        args.push('arr[' + i + ']')
+      }
+      // 3. 通过eval在context上调用该函数
+      const result = eval('context.fn('+ args +')')
+      // 4. 删除函数属性
+      delete context.fn
+      return result
+    }
+
+    /*
+      bind函数的实现
+      思路：
+        通过包裹函数，在函数内部使用call或apply去修改绑定this，然后再返回函数
+        1. 需要对参数特别处理，函数柯里化
+        2. 需要判断new关键字调用
+    */
+   Function.prototype.myBind = function(context) {
+     // 对context进行判断处理
+     context = Object(context) || window
+     // 保存this
+     const self = this
+     // 处理参数
+     const args = [].slice.call(arguments, 1)
+     // 创建函数，用于原型连接
+     const fNOP = function() {}
+     const fbound = function() {
+       console.log('this', this, typeof this)
+       return self.apply(this instanceof self ? self : context, args.concat([].slice.call(arguments)))
+     }
+     // 添加原型指向
+     fNOP.prototype = this.prototype
+     fbound.prototype = new fNOP()
+     return fbound
+   }
+
+   const obj = {
+     name: '张三'
+   }
+   function bar() {
+     console.log(this.name)
+   }
+   const baz = bar.myBind(obj)
+   console.dir(baz)
+   baz()
+   const a = new baz()
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <script>
+    var anotherObject = {
+      a: 2
+    }
+    // 创建一个__proto__指向antherObject的对象
+    var myObject = Object.create(anotherObject)
+    // var myObject = {}
+    // myObject.__proto__ = anotherObject
+    myObject.b = 3
+    console.dir(myObject)
+
+    // for in是否被遍历到原型上
+    for (const key in myObject) {
+      console.log(key, myObject[key])
+    }
+  </script> -->
+
+  <script>
+    function Foo(name) {
+      this.name = name
+    }
+
+    Foo.prototype.myName = function () {
+      return this.name
+    }
+
+    function Bar(name, label) {
+      Foo.call(this, name)
+      // this.name = name
+      this.label = label
+    }
+
+    // 简单实现一个Object.create
+    function myCreate(o) {
+      function F(){}
+      F.prototype = o
+      return new F()
+    }
+    // 创建了一个新的Bar.prototype对象并关联到Foo.prototype
+    // Bar.prototype = Object.create(Foo.prototype)
+    Bar.prototype = myCreate(Foo.prototype)
+
+    // 此时Bar.prototype上没有了constructor，如果需要该属性则需手动修复
+    Object.defineProperty(Bar.prototype, 'constructor', {
+      enumerable: false,
+      writable: true,
+      configurable: true,
+      value: Bar
+    })
+    // 由于constructor是不可枚举属性，因此需通过defineProperty去设置
+    // Bar.prototype.constructor = Bar
+
+    Bar.prototype.myLabel = function () {
+      return this.label
+    }
+
+    var a = new Bar('a', 'obj a')
+
+    console.log(a.myName()) // a
+    console.log(a.myLabel()) // obj a
+    console.dir(a)
+    a.go()
+    console.dir(Foo)
+    // console.log(a.__proto__)
+    // 使用for in遍历a的可枚举属性
+    // for (const key in a) {
+    //   console.log(key)
+    // }
+  </script>
+  
+  <!-- <script>
+    // 几乎所有函数都有prototype属性
+    function student(name, age, sex) {
+      var a = 1
+
+      function s(name) {
+        var b = 2
+        console.dir(s)
+      }
+      console.dir(student)
+      s()
+    }
+    student('张三', 18, '男')
+    
+    // 使用bind返回的函数是没有prototype属性的
+    var t = student.bind({
+      name: '李四'
+    })
+    console.dir(t)
+    // 如果使用instanceof，目标函数student的prototype是会替代t的
+    console.log(new student() instanceof t)
+    // 创建一个没有原型指向的对象
+    var obj = Object.create(null)
+    console.dir(obj)
+    console.dir({})
+  </script> -->
+</body>
+
+</html>

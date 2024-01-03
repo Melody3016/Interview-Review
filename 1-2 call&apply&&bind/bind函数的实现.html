@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*
+      原理：
+        强绑定，通过在函数内使用call或apply函数，修改this的指向，并通过返回该函数的形式让this的指向无法再次修改
+    */
+    function bar() {
+      console.log(this.name, ...arguments)
+    }
+    var obj = {
+      name: '张三'
+    }
+    var name = 'zs'
+
+    Function.prototype.myBind = function(context) {
+      var self = this
+      // 参数处理
+      var arr = Array.prototype.slice.call(arguments, 1)
+      // 函数柯里化
+      return function() {
+        self.apply(context, arr.concat(Array.prototype.slice.call(arguments)))
+      }
+    }
+
+    Function.prototype.myBind2 = function(context) {
+      var self = this
+      // 参数处理
+      var arr = Array.prototype.slice.call(arguments, 1)
+      // 函数柯里化
+      var fNOP = function() {}
+      var fbound =  function() {
+        // 判断是否作为构造函数使用了new关键字
+        return self.apply(this instanceof self ? this : context, arr.concat(Array.prototype.slice.call(arguments)))
+      }
+      // 作为构造函数修正原型指向
+      fNOP.prototype = this.prototype
+      fbound.prototype = new fNOP()
+      return fbound
+    }
+    bar(18, 168) // zs 18 168
+    var baz = bar.myBind(obj, 18)
+    baz(168)     // 张三 18 168
+
+    var person = {
+      name: '李四',
+      age: 18,
+      school: '二中'
+    }
+    function student(name, age, school) {
+      this.name = name
+      this.age = age
+      this.school = school
+    }
+    var foo = student.myBind2(person)
+    console.log(person)
+    var a = new foo('王五', 26, '一中')
+    console.log(person)
+    console.log(a)
+  </script>
+</body>
+</html>

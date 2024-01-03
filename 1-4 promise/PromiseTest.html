@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <script src="MyPromise.js"></script> -->
+  <!-- <script src="promise1.js"></script> -->
+  <script>
+    // actuator执行器函数出现异常，该promise实例直接转为rejected状态
+    /* let p1 = new Promise((resolve, reject) => {
+      console.log('actuator')
+      t.a()
+      resolve('hello, world')
+    })
+    console.log(p1)
+    p1.catch(reason => {
+      console.log(reason)
+    }) */
+
+    // callback的作用
+    /* const p1 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('hello')
+      }, 2000)
+    })
+    p1.then(value => {
+      console.log(value, 1)
+    })
+    p1.then(value => {
+      console.log(value, 2)
+    })
+    p1.then(value => {
+      console.log(value, 3)
+    }) */
+
+    // Promise.all的值
+    /* const p1 = new Promise((resolve, reject) => {
+      resolve(2)
+    })
+    const p2 = {
+      then: function(onFulfilled) {
+        onFulfilled(3)
+      }
+    }
+    const p3 = Promise.reject(4)
+    const p = Promise.all([1, p1, p2, p3])
+    console.log(p) */
+
+    // thenable
+    /* const p = {
+      then: function(onFulfilled, onRejected) {
+        onRejected(3)
+      }
+    }
+    const p1 = Promise.resolve(1)
+    const p2 = MyPromise.resolve(1)
+    console.log(p1)
+    console.log(p2) */
+
+    // Promise小测试
+    /* const getRandomIntInclusive = (min, max) => {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min; //含最大值，含最小值 
+    }
+
+    const p = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        // 30%中奖概率
+        if(getRandomIntInclusive(1, 100) <= 30) {
+          resolve('恭喜中奖！')
+        } else{
+          reject('谢谢惠顾！')
+        }
+        // resolve(Promise.reject(123))
+      }, 1000)
+    })
+    p.then(value => {
+      console.log(value)
+    }, reason => {
+      console.log(reason, 'reason')
+    }) */
+
+    // 改变状态和指定回调的先后顺序
+    /* const p1 = new Promise((resolve, reject) => {
+      reject(1)
+    })
+    p1.then(value => {
+      console.log(value, 'onFulfilled')
+    }, reason => {
+      console.log(reason, 'onRejected')
+    }).then(value => {
+      console.log(111)
+    }).then(value => {
+      console.log(222)
+    }).then(value => {
+      console.log(333)
+    }).catch(reason => {
+      console.log(reason)
+    }) */
+
+    // 当then里面的onFulfilled为对象或数字时, 直接忽略
+    /* const p1 = new Promise((resolve, reject) => {
+      resolve(1)
+    })
+    const p2 = new MyPromise((resolve, reject) => {
+      resolve(2)
+    })
+    const result1 = p1.then({ a:3 })
+    const result2 = p2.then({ a:3 })
+    console.log(result1)
+    console.log(result2) */
+
+    // then多次调用，callbacks的情况
+    /* const p1 = new MyPromise((resolve, reject) => {
+      resolve(123)
+    })
+    p1.then(value => {
+      console.log(value)
+    })
+    p1.then(value => {
+      console.log(value)
+    })
+    p1.then(value => {
+      console.log(value)
+    })
+    console.log(p1) 
+    const p2 = new Promise1((resolve, reject) => {
+      resolve(456)
+    })
+    p2.then(value => {
+      console.log(value)
+    })
+    p2.then(value => {
+      console.log(value)
+    })
+    p2.then(value => {
+      console.log(value)
+    })
+    console.log(p2)*/
+
+    // thenable多次调用问题
+    /* const p1 = new Promise1((resolve, reject) => {
+      resolve({
+        then(onFulfilled, onRejected) {
+          onFulfilled(111)
+          onFulfilled(222)
+          onRejected(333)
+          onRejected(444)
+          throw (666)
+        }
+      })
+    })
+    p1.then(value => {
+      console.log(value) 
+    })
+    console.log(p1) */
+    /* const p2 = new MyPromise((resolve, reject) => {
+      resolve({
+        then(onFulfilled, onRejected) {
+          onFulfilled(111)
+          onFulfilled(222)
+          onRejected(333)
+          onRejected(444)
+          throw (666)
+        }
+      })
+    })
+    p2.then(value => {
+      console.log(value) 
+    })
+    console.log(p2) */
+
+    // race方法
+    const p1 = new Promise((resolve, reject) => {
+      setTimeout(resolve, 500, 'one')
+    })
+    const p2 = new Promise((resolve, reject) => {
+      setTimeout(resolve, 100, 'two')
+    })
+    Promise.race([p1, p2]).then(res => {
+      console.log(res)
+    })
+  </script>
+</body>
+
+</html>

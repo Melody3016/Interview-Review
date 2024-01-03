@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+        1. 使用
+          - for...in 用于遍历对象，因为所有引用类型都能使用， 能遍历自身属性以及原型上的属性
+          - for...in 语句以任意顺序迭代一个对象的除Symbol以外的可枚举属性，包括继承的可枚举属性。
+          - 因顺序不确定性，不用于遍历数组
+
+          - for...of 用于遍历可迭代对象，原型上有Symbol.iterator方法
+          - for...of 语句在可迭代对象（包括 Array，Map，Set，String，TypedArray，arguments 对象等等）上创建一个迭代循环，调用自定义迭代钩子，并为每个不同属性的值执行语句
+        */
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      Person.prototype[Symbol.iterator] = function () {
+        const values = Object.values(this);
+        let index = 0;
+        return {
+          next() {
+            if (index < values.length) {
+              return {
+                value: values[index++],
+                done: false,
+              };
+            } else {
+              return {
+                value: undefined,
+                done: true,
+              };
+            }
+          },
+        };
+      };
+      const p1 = new Person("zs", 18);
+      console.log(p1);
+      for (const value of p1) {
+        console.log("for..of", value);
+      }
+    </script>
+  </body>
+</html>

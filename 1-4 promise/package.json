@@ -1,0 +1,15 @@
+{
+  "name": "promisetest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "promise1.js",
+  "scripts": {
+    "test": "promises-aplus-tests promise1",
+    "test2": "promises-aplus-tests MyPromise"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "promises-aplus-tests": "^2.1.2"
+  }
+}

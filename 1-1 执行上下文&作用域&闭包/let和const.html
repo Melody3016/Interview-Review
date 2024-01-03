@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*
+      const和let声明的变量无法被delete删除
+
+    */
+    const name = 'zs'
+    age = 18
+    console.log(delete name)  // false
+    console.log(delete age)   // true
+    console.log(name)
+    console.log(age)
+  </script>
+</body>
+</html>

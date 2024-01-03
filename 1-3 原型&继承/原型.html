@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // __proto__
+    const obj = {}
+    console.log(obj.__proto__ === Object.prototype) //  true
+    const obj2 = new Object()
+    console.log(obj2.__proto__ === Object.prototype) //  true
+
+    const arr = [1, 2, 3]
+    console.log(arr.__proto__ === Array.prototype) //  true
+    const arr2 = new Array(4, 5, 6)
+    console.log(arr2.__proto__ === Array.prototype) //  true
+
+    function fun1() {}
+    console.log(fun1.__proto__  === Function.prototype) //  true
+    const fun2 = function() {}
+    console.log(fun2.__proto__  === Function.prototype) //  true
+
+    // prototype
+    // 函数对象
+    function Person(name) {
+      this.name = name
+    }
+    // 实例对象person
+    const person = new Person('张三')
+    console.log(typeof person) // "object"
+    console.log(person.__proto__ === Person.prototype) // true
+    console.log(Person.prototype.__proto__ === Object.prototype) // true
+    console.log(Object.prototype.__proto__) // null
+
+    // 函数特殊情况
+    function fun3() {}
+    console.log(fun3.__proto__  === Function.prototype) //  true
+    console.log(Function.prototype.__proto__  === Object.prototype) //  true
+    console.log(Function.prototype === Function) // false
+    console.dir(typeof Function.prototype) // function
+    console.dir(typeof Person.prototype) // object
+    console.dir(typeof Object.prototype) // object
+    console.dir(typeof Array.prototype) // object
+
+    console.dir(String)
+    const str1 = new String(123)
+    console.log(typeof str1)
+    const str2 = '456'
+    console.log(typeof str2)
+    console.dir(str2)
+
+  </script>
+</body>
+
+</html>

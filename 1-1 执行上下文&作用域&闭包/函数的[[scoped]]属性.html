@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 'use strict'
+    console.log(this)
+    var a = 1
+    let b = 2
+    const c = 3
+    function fun1(arg1, arg2) {
+      console.log(this)
+      var d = 4
+      let e = 5
+      function fun2(arg1, arg2) {
+        console.dir(fun2)
+      }
+      const fun3 = function(arg1, arg2) {
+      }
+      console.dir(fun1)
+      fun2()
+      console.dir(fun3)
+    }
+    console.dir(fun1)
+    fun1('a', 'b')
+
+  </script>
+</body>
+
+</html>

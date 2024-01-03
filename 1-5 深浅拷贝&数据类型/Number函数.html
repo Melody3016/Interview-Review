@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*
+        Number(string)
+         - 开头的空格和0会被忽略
+         - 非数字存在直接转为NaN，相较parseInt更为严格，只能将合法的字符串形式数字转为number类型
+         - null转为0，true转为1，false转为0，undefined转为NaN
+
+    */
+  //  console.log(Number('00123')) // 123
+  //  console.log(Number('  123')) // 123
+  //  console.log(Number('12a3')) // 12
+  //  console.log(Number('12.6')) // 12.6 
+   console.log(Number(null)) // 0
+   console.log(Number(true)) // 1
+   console.log(Number(false)) // 0
+   console.log(Number(undefined)) // NaN
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="parent">
+    <div id="child">
+      <button id="btn">Click me</button>
+    </div>
+  </div>
+  <script>
+    const parent = document.getElementById('parent');
+    const child = document.getElementById('child');
+    const btn = document.getElementById('btn');
+
+    // 在事件捕获阶段触发事件处理程序
+    parent.addEventListener('click', function () {
+      console.log('Parent element is clicked');
+    }, true);
+
+    child.addEventListener('click', function () {
+      console.log('Child element is clicked');
+    }, true);
+
+    btn.addEventListener('click', function () {
+      console.log('Button is clicked');
+    });
+  </script>
+</body>
+
+</html>

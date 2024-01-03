@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <script>
+    // 代码
+    let a = 20
+    const b = 30
+    var c
+
+    function multiply(e, f) {
+      var g = 20
+      return e * f * g
+    }
+    c = multiply(20, 30)
+
+    // 分析
+    const globalContext = {
+      ThisBinding: window,
+      // 词法环境
+      LexicalEnvironment: {
+        // 环境记录器
+        EnvironmentRecord: {
+          // 全局执行上下文为对象环境记录器
+          type: 'Object',
+          a: uninitialized,
+          b: uninitialized,
+          multiply: func
+        },
+        outer: null
+      },
+      // 变量环境
+      VariableEnvironment: {
+        // 环境记录器
+        EnvironmentRecord: {
+          type: 'Object',
+          c: undefined
+        },
+        outer: null
+      }
+    }
+
+    const multiplyContext = {
+      // this
+      ThisBinding: '<global Object>',
+      // 词法环境
+      LexicalEnvironment: {
+        // 环境记录器
+        EnvironmentRecord: {
+          type: 'Declarative',
+          Arguments: { 0: 20, 1: 30, length: 2 }
+        },
+        outer: globalContext
+      },
+      // 变量环境
+      VariableEnvironment: {
+        // 环境记录器
+        EnvironmentRecord: {
+          type: 'Declarative',
+          g: undefined
+        },
+        outer: globalContext
+      }
+    }
+
+    // 执行上下文栈
+    let ECStack = []
+    // 添加全局执行上下文
+    ECStack.push(globalContext)   // ECStack: [globalContext]
+    // 执行到函数调用，添加该函数的执行上下文
+    ECStack.push(multiplyContext) // ECStack: [globalContext, multiplyContext]
+    // 函数执行完毕，弹出销毁函数执行上下文
+    ECStack.pop()                 // ECStack: [globalContext]
+    // 所有代码执行完毕，弹出销毁全局执行上下文
+    ECStack.pop()                 // ECStack: []
+  </script> -->
+
+  <script>
+    // 代码
+    let a = true
+    if (a) {
+      let a = 1
+      let b = 2
+      var c = 3 
+      console.log(a, b, c) // 1 2 3
+    }
+    console.log(c)    // 3
+    console.log(a, b) //  referenceError: b is not defined
+
+    // 分析
+    /*
+      globalContext: {
+        ThisBinding: window
+        LexicalEnvironment: {
+          EnvironmentRecord: {
+            a: uninitialized
+          },
+          outer: null
+        },
+        VariableEnvironment: {
+          EnvironmentRecord: {
+            c: undefined
+          },
+          outer: null
+        }
+      }
+
+    */
+  </script>
+</body>
+
+</html>

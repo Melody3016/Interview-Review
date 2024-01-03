@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 借用构造函数
+
+    // 定义一个Person类
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+      this.sayHi = function () {
+        console.log('My name is' + this.name)
+      }
+    }
+    Person.prototype.walk = function () {
+      console.log(this.name + '正在走路')
+    }
+    Person.prototype.eat = function () {
+      console.log(this.name + '正在吃饭')
+    }
+
+    // 子类构造函数
+    function Student(name, age, score, school) {
+      Person.call(this, name, age)
+      this.score = score
+      this.school = school
+      this.sayScore = function () {
+        console.log('My score is :' + this.score)
+      }
+    }
+   
+    Student.prototype = Object.create(Person.prototype)
+    // Student.prototype.__proto__ = Person.prototype
+    Student.prototype.constructor = Student
+
+    let stu1 = new Student('张三',18,90,'二中')
+    console.dir(stu1);
+
+  </script>
+</body>
+</html>

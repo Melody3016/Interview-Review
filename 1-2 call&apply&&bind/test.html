@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 箭头函数会捕获其所在的上下文的this值，作为自己的this值
+    function foo() {
+      setTimeout(() => {
+          console.log("id:", this.id);
+      }, 100)
+    }
+
+    foo.call( { id: 42 } ) // id: 42
+
+    // 应用默认绑定，this绑定为全局对象window
+    var id = 16
+    function foo2() {
+      setTimeout(function() {
+          console.log("id:", this.id);
+      }, 100)
+    }
+
+    foo2.call( { id: 42 } ) // id: 16
+  </script>
+</body>
+</html>

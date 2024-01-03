@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /* parseInt(string, radix) 
+      string: 
+        - 开头空白会被忽略      '   123'  ==>  123
+        - 中间空白之后会被忽略      '1 23'  ==>  123
+        - 小数点后被忽略    '123.45'  ==> 123  '123.45.67' ==> 123
+        - 0开头且radix不为8，则忽略0   '0123'  ==> 123
+        - 开头为字母为NaN   'A123'   ==> NaN
+      radix:
+        2-36 代表进制的基数
+        小于2大于36，直接返回NaN
+        0或未指定，则会根据string自动推算
+         - 0x开头，会被推算为16进制
+         - 0开头，会被推算为8进制
+         - 其余会被推算为10进制
+    
+    */
+    // console.log(parseInt('123.45.67')) // 123
+    // console.log(parseInt('a123')) // NaN
+    // console.log(parseInt('1 23')) // 1
+    // console.log(parseInt(021, 8)) // 15   第一次参数为number类型，会先转为10进制，17，再将17转8进制为，15
+    // console.log(parseInt('021', 8)) // 17
+    console.log(parseInt('1', 1)) // 17
+  </script>
+</body>
+
+</html>
