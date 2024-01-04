@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function arrange(name) {
+        const task = {
+          firstQueue: [],
+          secondQueue: [],
+          mainQueue: [],
+        };
+        const actuator = () => {
+          console.log(`${name} is notified`);
+        };
+
+        function wait(time) {
+          task.secondQueue.push(() => {
+            return new Promise((resolve) => {
+              setTimeout(resolve, time * 1000);
+            });
+          });
+          return this;
+        }
+        function doSomeThing(str) {
+          task.mainQueue.push(() => {
+            console.log(`Start to ${str}`);
+          });
+          return this;
+        }
+        function waitFirst(time) {
+          task.firstQueue.push(() => {
+            return new Promise((resolve) => {
+              setTimeout(resolve, time * 1000);
+            });
+          });
+          return this;
+        }
+        async function execute() {
+          /*
+              开始执行
+              1. 先执行firstQueue队列函数
+              2. 再执行actuator函数
+              3. 再执行secondQueue队列函数
+              4. 最后执行mainQueue队列函数
+          */
+          for (const fn of task.firstQueue) {
+            await fn();
+          }
+          actuator();
+          for (const fn of task.secondQueue) {
+            await fn();
+          }
+          for (const fn of task.mainQueue) {
+            fn();
+          }
+        }
+        return {
+          wait,
+          do: doSomeThing,
+          waitFirst,
+          execute,
+        };
+      }
+
+      arrange("William").wait(5).do("commit").waitFirst(3).execute();
+
+      // 等待3秒
+      // > William is notified
+      // 等待5秒
+      // > Start to commit
+    </script>
+
+    <!-- <script>
+      // 测试async await
+      const task = [];
+      const fn = () => {
+        return new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
+      };
+      task.push(fn);
+      task.push(fn);
+      task.push(fn);
+      task.push(fn);
+      task.push(fn);
+      /* task.forEach(async (fn, index) => {
+        const a = await fn();
+        console.log(index)
+      }); */
+      const f = async () => {
+        let i = 0;
+        for (const fn of task) {
+          await fn();
+          console.log(i++);
+        }
+        console.log("hello");
+      };
+      f();
+    </script> -->
+  </body>
+</html>
