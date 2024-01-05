@@ -1,0 +1,66 @@
+{
+  "code": "200",
+  "message": "OK",
+  "traceId": "1591997160536870913",
+  "data": {
+    "id": "1591768906024701953",
+    "prdCode": "B255482",
+    "prdName": "产品名称",
+    "settleType": "{\"dictParam\":\"INTERFACE\",\"displayName\":\"接口对接\",\"dictKey\":\"INTERFACE\"}",
+    "lendOrg": "资方名称2",
+    "lendOrgName": "",
+    "guaranteeOrg": "担保机构",
+    "guaranteeOrgName": "",
+    "lendLimit": 10.000000,
+    "limitPeriod": "2022-11-01",
+    "payInterestType": "{\"dictParam\":\"PAY_BY_BUYER\",\"displayName\":\"买方付息\",\"dictKey\":\"PAY_BY_BUYER\"}",
+    "discountType": "{\"dictParam\":\"BUYOUT\",\"displayName\":\"买断式\",\"dictKey\":\"BUYOUT\"}",
+    "payoffType": "{\"dictParam\":\"ONLINE_CLREAR\",\"displayName\":\"线上清算\",\"dictKey\":\"ONLINE_CLREAR\"}",
+    "hasFinancingLimit": "{\"dictParam\":\"Y\",\"displayName\":\"是\",\"dictKey\":\"Y\"}",
+    "financingLimit": 66.000000,
+    "financingPeriod": 99,
+    "lendRequire": "资方要求2",
+    "accessRequire": "[\"准入要求222\"]",
+    "channelJson": "{\"qrChannelList\":[{\"key\":\"ww\",\"linkUrl\":\"6\",\"qrCodeFileId\":\"1591990904897658881\"},{\"key\":\"www\",\"linkUrl\":\"荣辱观\",\"qrCodeFileId\":\"1591997108797562881\"}],\"qrDimension\":\"BANK_BRANCH\"}",
+    "tryCalculationType": "{\"dictParam\":\"NO_TRY\",\"displayName\":\"无需试算\",\"dictKey\":\"NO_TRY\"}",
+    "lendRate": 1.000000,
+    "duedateExtendDays": 2,
+    "duedateExtendType": "{\"dictParam\":\"WEEK_DAY\",\"displayName\":\"工作日\",\"dictKey\":\"WEEK_DAY\"}",
+    "loanAmountExtendDays": 2,
+    "loanAmountExtendType": "{\"dictParam\":\"WEEK_DAY\",\"displayName\":\"工作日\",\"dictKey\":\"WEEK_DAY\"}",
+    "lendAmountExtendDays": 2,
+    "lendAmountExtendType": "{\"dictParam\":\"WEEK_DAY\",\"displayName\":\"工作日\",\"dictKey\":\"WEEK_DAY\"}",
+    "guaranteeAmountExtendDays": 11,
+    "guaranteeAmountExtendType": "{\"dictParam\":\"WEEK_DAY\",\"displayName\":\"工作日\",\"dictKey\":\"WEEK_DAY\"}",
+    "guaranteeAmountRate": 11.000000,
+    "maxBillEndorsementTimes": 11,
+    "minBillRemainDays": 0,
+    "enable": "{\"dictParam\":\"Y\",\"displayName\":\"是\",\"dictKey\":\"Y\"}",
+    "remark": "",
+    "createBy": "",
+    "createByName": "",
+    "updateBy": "",
+    "updateByName": "",
+    "createTime": "2022-11-13 20:24:15",
+    "updateTime": "2022-11-14 11:31:08",
+    "version": "0",
+    "businessType": "{\"dictParam\":\"TRADE_DISCOUNT\",\"displayName\":\"商票贴现\",\"dictKey\":\"TRADE_DISCOUNT\"}",
+    "manager": "产品负责人",
+    "department": "产品归属部门",
+    "prdChannelDTO": {
+      "qrDimension": "{\"dictParam\":\"BANK_BRANCH\",\"displayName\":\"分行维度\",\"dictKey\":\"BANK_BRANCH\"}",
+      "qrChannelList": [
+        {
+          "key": "ww",
+          "qrCodeFileId": "1591990904897658881",
+          "linkUrl": "6"
+        },
+        {
+          "key": "www",
+          "qrCodeFileId": "1591997108797562881",
+          "linkUrl": "荣辱观"
+        }
+      ]
+    }
+  }
+}

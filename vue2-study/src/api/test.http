@@ -1,0 +1,28 @@
+GET http://localhost:4000/my-web/users/list HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzg0ODhlMDBlODAxMmUyMWMxNDc3OGQiLCJ1c2VybmFtZSI6InpoYW5nc2FuIiwiaWF0IjoxNjc3NjAzODA4LCJleHAiOjE2Nzc2MDc0MDh9.gN2uODyo35q0L0fYvPDpHzLE8bdNY0YHOvIVU3M5590
+
+###
+
+POST http://localhost:4000/my-web/users/login HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+username=zhangsan&password=123321
+
+###
+
+POST http://localhost:4000/my-web/users/register HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+username=zhangsan&password=123123
+
+###
+
+POST http://localhost:4000/my-web/upload HTTP/1.1
+Content-Type: multipart/form-data; boundary=aaa
+
+--aaa
+Content-Disposition: form-data; name="avatar"; filename="123.jpg"
+Content-Type: image/jpeg
+
+< ./2054345.jpg
+--aaa--
