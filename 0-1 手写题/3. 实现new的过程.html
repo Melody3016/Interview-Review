@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      理解new过程发生了哪些事情
+      1. 创建一个对象，并将其原型链指向构造函数的原型对象
+        const instance = Object.create(Person.prototype)
+      2. 将构造函数中的this，指向这个instance实例对象
+        this.name = name
+        this.age = age
+      3. 执行完构造函数中的代码，如果构造函数没有return一个对象，则直接return这个实例对象
+    */
+
+      function _new(Cons, ...args) {
+        const instance = Object.create(Cons.prototype);
+        const res = Cons.apply(instance, args);
+        return typeof res === "object" && res !== null ? res : instance;
+      }
+
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        this.sayHi = function () {
+          console.log(`${this.name}：hi~`);
+        };
+        this.walk = () => {
+          console.log(`${this.name}：walk~`);
+        };
+        return "hello";
+      }
+      Person.prototype.run = function () {
+        console.log(`${this.name}：run~`);
+      };
+
+      const p1 = new Person("zs", 18);
+      p1.sayHi();
+      p1.walk();
+      p1.run();
+
+      const p2 = _new(Person, "ls", 19);
+      p2.sayHi();
+      p2.walk();
+      p2.run();
+    </script>
+  </body>
+</html>

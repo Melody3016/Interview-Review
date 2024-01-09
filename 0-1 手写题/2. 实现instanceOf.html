@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 查找instance的原型链上是否有classOrFunc的原型对象
+      function _instanceof(instance, classOrFunc) {
+        // 先置条件判断instance类型
+        if (typeof instance !== "object" || instance === null) return false;
+        let proto = Object.getPrototypeOf(instance);
+        while (proto) {
+          if (proto === classOrFunc.prototype) {
+            return true;
+          }
+          proto = Object.getPrototypeOf(proto);
+        }
+        return false;
+      }
+
+      // 测试
+      console.log([] instanceof Array); // true
+      console.log([] instanceof Object); // true
+      console.log([] instanceof Function); // false
+      console.log([].__proto__ instanceof Object); // true
+      console.log(Array instanceof Function); // true
+      console.log(Object instanceof Function); // true
+      console.log("=============================================");
+      console.log(_instanceof([], Array)); // true
+      console.log(_instanceof([], Object)); // true
+      console.log(_instanceof([], Function)); // false
+      console.log(_instanceof([].__proto__, Object)); // true
+      console.log(_instanceof(Array, Function)); // true
+      console.log(_instanceof(Object, Function)); // true
+    </script>
+  </body>
+</html>

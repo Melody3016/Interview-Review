@@ -38,7 +38,7 @@
       var fNOP = function() {}
       var fbound =  function() {
         // 判断是否作为构造函数使用了new关键字
-        return self.apply(this instanceof self ? this : context, arr.concat(Array.prototype.slice.call(arguments)))
+        return self.apply(this instanceof fbound ? this : context, arr.concat(Array.prototype.slice.call(arguments)))
       }
       // 作为构造函数修正原型指向
       fNOP.prototype = this.prototype

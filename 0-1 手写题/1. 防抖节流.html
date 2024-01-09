@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3 id="count"></h3>
+    <button id="btn">加一</button>
+
+    <script>
+      let count = 0;
+      const countEle = document.getElementById("count");
+      const btnEle = document.getElementById("btn");
+      countEle.innerText = count;
+
+      const incrementDebounce = debounce(increment, 1000);
+      const incrementThrottle = throttle(increment);
+      const incrementThrottle2 = throttle2(increment);
+      btnEle.addEventListener("click", incrementDebounce);
+
+      function increment() {
+        console.log("加一");
+        countEle.innerText = ++count;
+      }
+      // 简易防抖
+      function debounce(fn, delay = 500, immediately = true) {
+        let timeId = null;
+        return function (...args) {
+          // 第一次立即执行
+          if (immediately) {
+            fn.apply(this, args);
+            immediately = false;
+            return
+          }
+          if (timeId) clearTimeout(timeId);
+          timeId = setTimeout(() => {
+            fn.apply(this, args);
+          }, delay);
+        };
+      }
+
+      // 简易节流1
+      function throttle(fn, delay = 500) {
+        let now = 0;
+        return function (...args) {
+          // 只有超过delay才执行fn
+          if (Date.now() - now > delay) {
+            fn.apply(this, args);
+            now = Date.now();
+          }
+        };
+      }
+
+      // 简易节流2
+      function throttle2(fn, delay = 500) {
+        let timeId = null;
+        return function (...args) {
+          if (timeId) return;
+          timeId = setTimeout(() => {
+            fn.apply(this, args);
+            timeId = null;
+          }, delay);
+        };
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 测试
+      var names = '张三';
+      const p1 = {
+        names: '李四'
+      };
+      const p2 = {
+        names: '王五'
+      };
+      const p3 = {
+        names: '赵六'
+      };
+      function sayHi(school, grade) {
+        console.log(`${this.names}：我来自${school}${grade}`);
+      }
+      sayHi('一中', '二年级');
+      sayHi.call(p1, '一中', '二年级');
+      sayHi.apply(p2, ['一中', '二年级']);
+      const newFn = sayHi.bind(p3);
+      newFn('一中', '二年级');
+    </script>
+
+    <script>
+      Function.prototype._call = _call;
+      Function.prototype._apply = _apply;
+      Function.prototype._bind = _bind;
+      function _call(obj, ...args) {
+        // 将this添加到obj上，执行
+        const callFn = Symbol('callFn');
+        obj.callFn = this;
+        obj.callFn(...args);
+        // 执行完删除该属性
+        delete obj.callFn;
+      }
+      function _apply(obj, argArr) {
+        // 将this添加到obj上，执行
+        const callFn = Symbol('callFn');
+        obj.callFn = this;
+        obj.callFn(...argArr);
+        // 执行完删除该属性
+        delete obj.callFn;
+      }
+      function _bind(obj, ...args) {
+        // context 是 bind 传入的 this
+        // args 是 bind 传入的各个参数
+        // this表示调用bind的函数
+        let self = this; // fn.bind(obj) self就是fn
+
+        //返回了一个函数，...innerArgs为实际调用时传入的参数
+        let fBound = function (...innerArgs) {
+          //this instanceof fBound为true表示构造函数的情况。如new func.bind(obj)
+          // 当作为构造函数时，this 指向实例，此时 this instanceof fBound 结果为 true，可以让实例获得来自绑定函数的值
+          // 当作为普通函数时，this 默认指向 window，此时结果为 false，将绑定函数的 this 指向 context
+          return self._apply(
+            // 函数执行
+            this instanceof fBound ? this : obj,
+            args.concat(innerArgs) // 拼接参数
+          );
+        };
+
+        // 如果绑定的是构造函数，那么需要继承构造函数原型属性和方法：保证原函数的原型对象上的属性不丢失
+        // 实现继承的方式: 使用Object.create
+        fBound.prototype = Object.create(this.prototype);
+        // 处理length属性
+        fBound.length = Math.max(0, fBound.length - args.length);
+        return fBound;
+      }
+
+      sayHi._call(p1, '一中', '二年级');
+      sayHi._apply(p2, ['一中', '二年级']);
+      const newFn2 = sayHi._bind(p3, '一中');
+      newFn2('二年级');
+    </script>
+
+    <script>
+      // 关于bind 和new
+      function Animal(name, age) {
+        this.name = name;
+        this.age = age;
+        this.sayHi = function () {
+          console.log(`${this.name}：hi~`);
+        };
+        this.walk = () => {
+          console.log(`${this.name}：walk~`);
+        };
+      }
+      Animal.prototype.run = function () {
+        console.log(this.name, this.age);
+      };
+      const obj = {};
+      const an1 = new Animal('小猫', 1);
+      console.log(an1.name, an1.age);
+      an1.sayHi();
+      an1.walk();
+      const AnimalBind = Animal._bind(obj);
+      const an2 = new AnimalBind('小狗', 2);
+      console.log(obj, an2, an2.name, an2.age);
+      an2.sayHi();
+      an2.walk();
+      an1.run();
+      an2.run();
+      console.dir(Animal)
+      console.dir(AnimalBind)
+    </script>
+  </body>
+</html>
