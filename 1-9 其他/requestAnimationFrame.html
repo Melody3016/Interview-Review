@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #box {
+        background-color: brown;
+        height: 100px;
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>requestAnimationFrame</p>
+
+    <button id="btn1">change</button>
+    <div id="box"></div>
+
+    <script>
+      const box = document.getElementById('box');
+
+      document.getElementById('btn1').addEventListener('click', () => {
+        let curWidth = 100;
+        const maxWidth = 400;
+
+        function addWidth() {
+          curWidth = curWidth + 3;
+          box.style.width = `${curWidth}px`;
+          if (curWidth < maxWidth) {
+            window.requestAnimationFrame(addWidth); // 时间不用自己控制
+          }
+        }
+        addWidth();
+      });
+
+      window.onload = () => {
+        console.info('start');
+        setTimeout(() => {
+          console.info('timeout');
+        });
+        // 空闲时间才执行
+        window.requestIdleCallback(() => {
+          console.info('requestIdleCallback');
+        });
+        window.requestAnimationFrame(() => {
+          console.info('requestAnimationFrame');
+        });
+        console.info('end');
+      };
+    </script>
+  </body>
+</html>
