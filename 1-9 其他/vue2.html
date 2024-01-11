@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <ul ref="ul">
+        <li v-for="(item, index) in list" :key="index">{{ item }}</li>
+      </ul>
+      <button @click="addItem">添加</button>
+    </div>
+    <script>
+      new Vue({
+        // el: '#root',
+        data: {
+          list: []
+        },
+        methods: {
+          addItem() {
+            this.list.push(`${Date.now()}`);
+            this.list.push(`${Date.now()}`);
+            this.list.push(`${Date.now()}`);
+
+            // 1.页面渲染是异步的，$nextTick待渲染完在回调
+            // 2.页面渲染时会将data的修改做整合，多次data修改也只会渲染一次
+            this.$nextTick(() => {
+              const ulElem = this.$refs.ul;
+              console.log(ulElem.childNodes.length);
+            });
+          }
+        }
+      }).$mount('#root')
+    </script>
+  </body>
+</html>

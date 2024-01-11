@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function _deepClone(val, memo = new WeakMap()) {
+        // 普通类型直接返回
+        if (typeof val !== 'object' || val === null) return val;
+        // 时间和正则对象处理
+        if (val instanceof Date) return new Date(val);
+        if (val instanceof RegExp) return new RegExp(val);
+        if (val instanceof Set) return new Set(val);
+        // 防止循环引用
+        if (memo.get(val)) return val;
+        memo.set(val, true);
+
+        // 根据类型不同创建对应的新对象
+        const newObj = new val.constructor(); // [] || {}
+        for (const key in val) {
+          if (Object.hasOwnProperty.call(val, key)) {
+            newObj[key] = _deepClone(val[key], memo);
+          }
+        }
+
+        return newObj;
+      }
+
+      // 测试用例
+      const obj1 = {
+        name: 'zs',
+        age: 18,
+        r: /^[abv]$/,
+        d: new Date('2026-09-14'),
+        s: new Set([1, 2, 3]),
+        info: {
+          school: '一中',
+          grade: '一年级',
+          sayGrade() {
+            console.log(this.grade);
+          }
+        }
+      };
+      const obj2 = _deepClone(obj1);
+      obj2.name = 'ls';
+      obj2.info.grade = '二年级';
+      console.log(obj1, obj2);
+      obj1.info.sayGrade();
+      obj2.info.sayGrade();
+
+      const a = { val: 2 };
+      a.target = a;
+      let newA = _deepClone(a);
+      console.log(newA); //{ val: 2, target: { val: 2, target: [Circular] } }
+    </script>
+  </body>
+</html>
