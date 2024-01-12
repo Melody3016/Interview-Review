@@ -3,6 +3,7 @@ import useStateDemo from './hooks/useStateDemo';
 import useEffectDemo from './hooks/useEffectDemo';
 import Example from './components/Example';
 import Example2 from './components/Example2';
+import MemoDemo from './components/MemoDemo';
 
 function App() {
   const { value, clickHandler } = useStateDemo();
@@ -10,12 +11,13 @@ function App() {
 
   return (
     <div className='App'>
-      <button onClick={clickHandler}>点击 {value}</button>
+      {/* <button onClick={clickHandler}>点击 {value}</button>
       <div>
         value: {effectValue} <button onClick={effectClickHandler}>点击</button>
       </div>
       <Example />
-      <Example2 />
+      <Example2 /> */}
+      <MemoDemo />
     </div>
   );
 }
