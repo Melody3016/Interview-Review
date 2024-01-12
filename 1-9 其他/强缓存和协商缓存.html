@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*
+      1. 强缓存
+        通过设置响应头
+          - Cache-Control: max-age=... 来控制缓存时长
+          - Expires： 有漏洞，不太可靠，早期使用，现在很少使用
+        特点：
+          - 在到期前，不会再向服务器发送请求
+          - 状态码为 200
+          - 适合缓存长期不改变的静态资源
+          - 通过配合资源文件hash命令使用
+
+      2. 协商缓存
+        通过设置响应头
+          - Last-Modified：  来代表上次更改时间
+          - If-Modified-Since:
+          - ETag:  更加可靠
+          - If-None-Match
+        特点：
+          - 每次都会向服务器发送请求，来确定Last-modified是否更改
+          - 没有到期则不会返回资源
+          - 状态码为304
+          - 默认缓存策略
+    
+    
+    */
+  </script>
+</body>
+</html>
