@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <script>
+    /* 
+      1. 原型链继承
+        - 将子类的原型指向父类实例
+        - 可以访问父类实例和原型上的属性和方法
+        - 但无法修改父类实例定义的属性
+
+    */
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+      this.run = function() {
+        console.log(`${this.name}正在run...`);
+      }
+    }
+    Person.prototype.introduction = function() {
+      console.log(`我的名字是：${this.name}，年龄是：${this.age}岁`);
+    }
+
+    function Student(name, age, schoolName, grade) {
+      this.name = name
+      this.age = age
+      this.schoolName = schoolName
+      this.grade = grade
+      this.sayHi = function() {
+        console.log(`我的学校是：${this.schoolName}，年级是${this.grade}`);
+      }
+    }
+
+    // 将子类原型指向父类实例
+    Student.prototype = new Person('默认', 20)
+    // 修复constructor指向
+    Student.prototype.constructor = Student
+    // Object.setPrototypeOf(Student.prototype, new Person())
+    console.dir(Person)
+    console.dir(Student)
+
+    const stu1 = new Student('张三', 18, '一中', '一年级')
+    stu1.sayHi()
+    stu1.introduction()
+    stu1.run()
+  </script> -->
+
+    <!-- <script>
+      /* 
+      2. 组合继承 = 原型链继承 + 借用构造函数继承 
+    */
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        this.run = function () {
+          console.log(`${this.name}正在run...`);
+        };
+      }
+      Person.prototype.introduction = function () {
+        console.log(`我的名字是：${this.name}，年龄是：${this.age}岁`);
+      };
+
+      function Student(name, age, schoolName, grade) {
+        Person.call(this, name, age);
+        this.schoolName = schoolName;
+        this.grade = grade;
+        this.sayHi = function () {
+          console.log(`我的学校是：${this.schoolName}，年级是${this.grade}`);
+        };
+      }
+
+      // 将子类原型指向父类实例
+      Student.prototype = new Person('默认', 20);
+      // 修复constructor指向
+      Student.prototype.constructor = Student;
+
+      const stu1 = new Student('张三', 18, '一中', '一年级');
+      console.dir(Person);
+      console.dir(Student);
+      console.dir(stu1);
+      stu1.sayHi();
+      stu1.introduction();
+      stu1.run();
+    </script> -->
+
+    <script>
+      /* 
+      3. 寄生组合继承
+    */
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        this.run = function () {
+          console.log(`${this.name}正在run...`);
+        };
+      }
+      Person.prototype.introduction = function () {
+        console.log(`我的名字是：${this.name}，年龄是：${this.age}岁`);
+      };
+
+      function Student(name, age, schoolName, grade) {
+        Person.call(this, name, age);
+        this.schoolName = schoolName;
+        this.grade = grade;
+        this.sayHi = function () {
+          console.log(`我的学校是：${this.schoolName}，年级是${this.grade}`);
+        };
+      }
+
+      Object.setPrototypeOf(Student.prototype, Person.prototype)
+
+      const stu1 = new Student('张三', 18, '一中', '一年级');
+      console.dir(Person);
+      console.dir(Student);
+      console.dir(stu1);
+      stu1.sayHi();
+      stu1.introduction();
+      stu1.run();
+    </script>
+  </body>
+</html>
