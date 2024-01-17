@@ -35,5 +35,48 @@
         }
       }).$mount('#root')
     </script>
+
+    <script>
+      /*
+        Vue.js 2.x 的响应式原理主要基于 Object.defineProperty() 和发布-订阅模式。以下是Vue.js 2.x的响应式原理的详细描述：
+
+        初始化阶段：
+          当创建 Vue 实例时，Vue 会遍历 data 对象的属性，使用 Object.defineProperty() 将每个属性转化为 getter 和 setter。
+          对于每个属性，Vue 创建一个称为“dep（依赖）”的对象，用于存储依赖于该属性的订阅者（观察者）。
+
+        Getter 和 Setter：
+          对于 data 对象的每个属性，Vue 使用 Object.defineProperty() 创建 getter 和 setter。
+          getter 负责收集依赖，当属性被访问时，Vue 将当前的 watcher（观察者）添加到 dep 中。
+          setter 负责触发更新，当属性被修改时，setter 通知 dep，dep 通知所有依赖于该属性的 watcher 进行更新。
+          依赖收集：
+          在模板编译过程中，当渲染函数执行时，Vue 开始进行依赖收集。此时，渲染函数内部的 data 属性被读取，触发 getter。
+          每个 getter 被执行时，当前的 watcher 被添加到对应的 dep 中。
+          这样就建立了一个依赖关系，当属性变化时，知道要通知哪些 watcher 进行更新。
+
+        Watcher：
+          每个组件实例都有一个 Watcher 对象，它负责渲染视图和执行用户定义的回调函数。
+          在渲染过程中，如果一个属性被读取，Watcher 会收集依赖，建立与该属性的关联。
+          当属性被修改时，setter 会通知对应的 dep，dep 会通知所有依赖于该属性的 watcher 进行更新。
+
+        发布-订阅模式：
+          Dep 对象充当发布者的角色，负责收集依赖和通知更新。
+          Watcher 对象充当订阅者的角色，负责渲染视图和执行用户定义的回调函数。
+          当属性变化时，Dep 通知所有订阅者（watcher）执行更新。
+        
+        这样，通过 Object.defineProperty() 和发布-订阅模式的结合，Vue 实现了一个响应式系统，使得数据变化时能够自动触发视图更新。这个机制使得 Vue 具有高效的、精细粒度的数据变化追踪和更新能力。
+      */
+
+      /*
+          Vue.js 3.x 使用了 Proxy 和 Reflect API 来重新设计响应式系统，与 Vue 2.x 使用的 Object.defineProperty 有较大的变化。以下是 Vue.js 3.x 的响应式原理的详细描述：
+
+          Proxy：
+            Proxy 是 JavaScript 中的一个内置对象，它提供了一种拦截目标对象操作的方式。
+            Vue 3 使用 Proxy 对象拦截对响应式对象的访问和修改，而不再使用 Object.defineProperty。
+
+            在创建响应式对象时，Proxy 会为目标对象的每个属性创建一个称为“handler”的处理器。
+            这个处理器定义了代理对象的行为，包括 getter、setter 等。
+      */
+
+    </script>
   </body>
 </html>
