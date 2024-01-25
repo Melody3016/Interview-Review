@@ -14,10 +14,11 @@
       <button @click="addItem">添加</button>
     </div>
     <script>
-      new Vue({
+      var vm = new Vue({
         // el: '#root',
         data: {
-          list: []
+          list: [],
+          [Symbol('msg')]: 123
         },
         methods: {
           addItem() {
@@ -34,6 +35,7 @@
           }
         }
       }).$mount('#root')
+      console.log(vm);
     </script>
 
     <script>

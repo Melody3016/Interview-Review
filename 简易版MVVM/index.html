@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./watcher.js"></script>
+    <script src="./compiler.js"></script>
+    <script src="./dep.js"></script>
+    <script src="./observe.js"></script>
+    <script src="./index.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>hello, world! {{ msg }}</h2>
+      <input type="text" v-model="msg" />
+      <h2>deep ! {{ stu.obj.name }}</h2>
+      <input type="text" v-model="stu.obj.name" />
+    </div>
+
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          msg: '123',
+          stu: {
+            obj: {
+              name: 'zs'
+            }
+          }
+        },
+        methods: {
+          run() {
+            console.log('run run run');
+          }
+        }
+      });
+      console.log(vm);
+    </script>
+  </body>
+</html>
