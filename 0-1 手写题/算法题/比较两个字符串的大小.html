@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       *  比较两个字符串的大小
+       *  两个字符串都是用 - 连接的数字，比如1-2-33-41-5
+       *  比较方式是从左到右，依次比较每个数字的大小，遇到相等的数字继续往后比较，遇到不同的数字直接得到计较结果
+       *  s1 > s2 return 1
+       *  s1 < s2 return -1
+       *  s1 === s2 return 0
+       */
+      /**
+       *
+       * @param {string} s1
+       * @param {string} s2
+       */
+      function compare(s1, s2) {
+        /**
+         *  思路1：
+         *   将字符串以 - 分割转为数组后再比较
+         *   比较过程：
+         *     1. 两个数组长度不一致，直接比较长度大小
+         *     2. 同索引元素两两比较
+         *     3. 最后一个元素也相等，则两个字符串相等
+         */
+        /* const arr1 = s1.split('-');
+        const arr2 = s2.split('-');
+        if (arr1.length !== arr2.length) {
+          return arr1.length > arr2.length ? 1 : -1;
+        }
+        for (let i = 0; i < arr1.length; i++) {
+          if (arr1[i] > arr2[i]) {
+            return 1;
+          } else if (arr1[i] < arr2[i]) {
+            return -1;
+          }
+        }
+        return 0; */
+        /**
+         *  思路2：
+         *   将字符串中的 - 去掉，转为数字，直接进行比较
+         */
+        /* const n1 = Number(s1.match(/\d/g).join(''))
+        const n2 = Number(s2.match(/\d/g).join(''))
+        if (n1 > n2) {
+          return 1
+        } else if (n1 < n2) {
+          return -1
+        } else {
+          return 0
+        } */
+        /**
+         *  思路3：
+         *   假设字符串非常长，但前几位就能够比较出字符串大小，使用前面实现方法导致效率很低
+         *   因此理想的思路是从头开始一一比较
+         *   可以实现一个walk函数，从字符串中按照顺序获取数字
+         *   在循环中不停的按顺序取出两个字符串中位置相同的数字，进行比较
+         */
+        if (s1.length !== s2.length) {
+          return s1.length > s2.length ? 1 : -1;
+        }
+        const iterator1 = walk(s1);
+        const iterator2 = walk(s2);
+        while (true) {
+          // 取出两个字符串中位置相同的数字，进行比较
+          const { done, value: n1 } = iterator1.next();
+          const { value: n2 } = iterator2.next();
+          if (done) {
+            return 0;
+          }
+          if (n1 > n2) {
+            return 1;
+          } else if (n1 < n2) {
+            return -1;
+          }
+        }
+      }
+
+      /**
+       *  @param {string} str
+       *  @returns {Function}
+       */
+      function walk2(str) {
+        // 标记索引
+        const len = str.length;
+        let index = 0;
+
+        function next() {
+          let value = undefined;
+          let done = false;
+          // 是否遍历结束
+          if (index === len) {
+            done = true;
+          } else {
+            // 取出数字
+            while (isNaN(str[index]) && index <= len) {
+              index++;
+            }
+            value = str[index];
+            index++;
+          }
+          return {
+            value,
+            done
+          };
+        }
+
+        return {
+          next
+        };
+      }
+      /**
+       *  @param {string} str
+       *  @returns {Function}
+       */
+      function* walk(str) {
+        // 标记索引
+        const len = str.length;
+        let index = 0;
+        // 取出数字
+        while (index < len) {
+          if (isNaN(str[index])) {
+            index++;
+          } else {
+            yield str[index];
+            index++;
+          }
+        }
+      }
+      console.log(compare('2-4-5-1', '2-4-3')); // 1
+      console.log(compare('2-4-5', '2-4-3-1')); // -1
+      console.log(compare('2-4-5', '2-4-3')); // 1
+      console.log(compare('2-4-1', '2-4-3')); // -1
+      console.log(compare('2-4-5', '2-4-5')); // 0
+    </script>
+  </body>
+</html>

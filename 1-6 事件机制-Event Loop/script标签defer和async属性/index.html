@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./defer.js" defer></script>
+    <script src="https://cdn.staticfile.org/Vue.Draggable/2.24.3/vuedraggable.umd.min.js"></script>
+  </head>
+  <body>
+    <h1>script标签defer和async属性</h1>
+
+    <script>
+      console.log('hello');
+      window.addEventListener('DOMContentLoaded', function() {
+        console.log('deferVal', deferVal);
+        console.log('DOMContentLoaded');
+      })
+    </script>
+
+    <script>
+      /*
+        总结：
+          1. defer
+            defer属性是设置script脚本延迟执行，会在文档解析完毕后，DOMContentLoaded事件之前执行
+          就是有点类似与把script标签放到body中末尾位置，但是脚本的下载会先执行。
+            防止js脚本阻塞文档解析
+            提高渲染速度
+            但是脚本中全局变量或者函数不能被使用
+
+            HTML执行是按从上到下顺序执行，遇到script标签，会停止文档解析，去下载并执行script标签中的js代码
+
+          2. async
+            async属性是设置script脚本异步加载再执行，不会阻塞文档的解析，异步加载完成后会立即执行
+
+            不保证执行顺序，异步
+      */
+    </script>
+  </body>
+</html>
