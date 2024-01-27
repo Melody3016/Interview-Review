@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       *  并发请求
+       * @param {string[]} urls 待请求的 url 数组
+       * @param {number} maxNum 最大并发数
+       */
+      function concurRequest(urls, maxNum) {
+        return new Promise(resolve => {
+          const result = [];
+          // 计数器
+          let index = 0;
+          let count = 0;
+
+          async function request() {
+            const url = urls[index];
+            const i = index;
+            index++;
+
+            try {
+              const res = await fetch(url);
+              result[i] = res;
+            } catch (err) {
+              result[i] = err;
+            } finally {
+              count++;
+              if (count === urls.length) {
+                resolve(result);
+              }
+              if (index < urls.length) {
+                request();
+              }
+            }
+            console.log(result);
+          }
+
+          for (let i = 0; i < maxNum; i++) {
+            request();
+          }
+        });
+      }
+
+      const urls = [];
+      for (let i = 0; i < 10; i++) {
+        urls.push('../data.json');
+        // urls.push('https://v1.hitokoto.cn/');
+      }
+      const res = concurRequest(urls, 3);
+      console.log(res);
+    </script>
+  </body>
+</html>

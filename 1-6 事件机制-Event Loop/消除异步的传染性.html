@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <script>
+      async function getData() {
+        const res = await fetch('./data.json');
+        return res;
+      }
+      async function m1() {
+        const res = await getData();
+        return res;
+      }
+      async function m2() {
+        const res = await m1();
+        return res;
+      }
+      async function m3() {
+        const res = await m2();
+        return res;
+      }
+      async function main() {
+        const res = await m3();
+        console.log(res);
+      }
+      main()
+    </script> -->
+    <script>
+      function getData() {
+        const res = fetch('./data.json');
+        return res;
+      }
+      function m1() {
+        const res = getData();
+        return res;
+      }
+      function m2() {
+        const res = m1();
+        return res;
+      }
+      function m3() {
+        const res = m2();
+        return res;
+      }
+      function main() {
+        const res = m3();
+        console.log(res);
+      }
+
+      function _run(func) {
+        const originFetch = window.fetch;
+        let cache = null;
+        const newFetch = function (...args) {
+          if (cache) {
+            // 从缓存中拿出结果
+            return cache;
+          } else {
+            const p = originFetch(...args)
+              .then(res => res.json())
+              .then(res => {
+                cache = res;
+              });
+            throw p;
+          }
+        };
+        window.fetch = newFetch;
+        try {
+          func();
+        } catch (e) {
+          // 重新执行函数
+          if (e instanceof Promise) {
+            e.finally(() => {
+              window.fetch = newFetch;
+              func();
+              window.fetch = originFetch;
+            });
+          }
+        }
+        window.fetch = originFetch;
+      }
+      _run(main);
+    </script>
+  </body>
+</html>
