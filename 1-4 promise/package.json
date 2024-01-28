@@ -5,7 +5,9 @@
   "main": "promise1.js",
   "scripts": {
     "test": "promises-aplus-tests promise1",
-    "test2": "promises-aplus-tests MyPromise"
+    "test2": "promises-aplus-tests promise2",
+    "test3": "promises-aplus-tests promise3",
+    "test4": "promises-aplus-tests MyPromise"
   },
   "author": "",
   "license": "ISC",

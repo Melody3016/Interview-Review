@@ -19,6 +19,9 @@ function isThenable(val) {
     typeof val.then === 'function'
   );
 }
+function isPromise(val) {
+  return val instanceof MyPromise;
+}
 
 class MyPromise {
   PromiseState = 'pending';
@@ -125,4 +128,16 @@ class MyPromise {
   catch(onRejected) {
     this.then(undefined, onRejected);
   }
+
+  static deferred = function () {
+    var result = {};
+    result.promise = new MyPromise(function (resolve, reject) {
+      result.resolve = resolve;
+      result.reject = reject;
+    });
+
+    return result;
+  };
 }
+
+module.exports = MyPromise;

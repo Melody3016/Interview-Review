@@ -1,7 +1,7 @@
 const isFunction = obj => typeof obj === 'function'
 const isObject = obj => !!(obj && typeof obj === 'object')
 const isThenable = obj => (isFunction(obj) || isObject(obj)) && 'then' in obj
-const isPromise = promise => promise instanceof Promise
+const isPromise = promise => promise instanceof Promise1
 
 const PENDING = 'pending'
 const FULFILLED = 'fulfilled'
@@ -122,4 +122,4 @@ Promise1.deferred = function () {
 
   return result;
 }
-module.exports = Promise
+module.exports = Promise1
